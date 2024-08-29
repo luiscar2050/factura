@@ -7,8 +7,6 @@ public class Producto {
     private String nombre;
     private double precio;
 
-    public Producto(String codigo, String nombre, double precio) {}
-
     public String getCodigo() {
         return codigo;
     }
@@ -30,6 +28,10 @@ public class Producto {
     }
 
     public void setPrecio(double precio) {
-        this.precio = precio;
+        if (precio >= 0) {
+            this.precio = precio;
+        } else {
+            throw new IllegalArgumentException("El precio debe ser mayor o igual a cero.");
+        }
     }
 }
