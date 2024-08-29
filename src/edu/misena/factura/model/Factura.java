@@ -9,8 +9,6 @@ public class Factura {
     private Cliente cliente;
     private ItemFactura[] items;
 
-    public Factura(int folio, String descripcion, Date fecha, Cliente cliente, ItemFactura[] items) {}
-
     public int getFolio() {
         return folio;
     }
@@ -50,5 +48,4 @@ public class Factura {
     public void setItems(ItemFactura[] items) {
         this.items = items;
     }
-
 }
