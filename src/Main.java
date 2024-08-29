@@ -1,15 +1,39 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+package edu.misena.factura.model;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        Cliente cliente = new Cliente();
+        cliente.setNif("5555-5");
+        cliente.setNombre("Andrés");
+
+        Factura factura = new Factura(1, "Factura Ejemplo", new Date(), cliente);
+
+        Scanner s = new Scanner(System.in);
+        Producto producto;
+
+        System.out.println();
+
+        for (int i = 0; i < 5; i++) {
+            producto = new Producto();
+            System.out.print("Ingrese nombre del producto nº " + (i + 1) + ": ");
+            producto.setNombre(s.nextLine());
+
+            System.out.print("Ingrese el precio: ");
+            producto.setPrecio(s.nextDouble());
+
+            System.out.print("Ingrese la cantidad: ");
+            int cantidad = s.nextInt();
+            factura.addItemFactura(new ItemFactura(producto, cantidad));
+
+            System.out.println();
+            s.nextLine();
         }
+
+        System.out.println(factura);
     }
 }
