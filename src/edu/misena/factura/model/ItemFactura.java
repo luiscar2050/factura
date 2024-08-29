@@ -1,12 +1,9 @@
 package edu.misena.factura.model;
 
 import java.util.Date;
-
 public class ItemFactura {
-private Producto producto;
-private int cantidad;
-
-    public ItemFactura(Producto producto, int cantidad) {}
+    private Producto producto;
+    private int cantidad;
 
     public Producto getProducto() {
         return producto;
@@ -21,7 +18,11 @@ private int cantidad;
     }
 
     public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+        if (cantidad > 0) {
+            this.cantidad = cantidad;
+        } else {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
+        }
     }
-
 }
+
