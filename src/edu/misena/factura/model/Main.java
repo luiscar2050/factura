@@ -1,6 +1,5 @@
 package edu.misena.factura.model;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -8,8 +7,8 @@ public class Main {
     public static void main(String[] args) {
 
         Cliente cliente = new Cliente();
-        cliente.setNif("5555-5");
-        cliente.setNombre("Andrés");
+        cliente.setNif("777-7");
+        cliente.setNombre("Luis");
 
         Factura factura = new Factura(1, "Factura Ejemplo", new Date(), cliente);
 
@@ -19,7 +18,8 @@ public class Main {
         System.out.println();
 
         for (int i = 0; i < 5; i++) {
-            producto = new Producto();
+            double client;
+            producto = new Producto("Portatil", 2);
             System.out.print("Ingrese nombre del producto nº " + (i + 1) + ": ");
             producto.setNombre(s.nextLine());
 

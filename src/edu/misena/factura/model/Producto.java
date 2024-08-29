@@ -1,3 +1,5 @@
+package edu.misena.factura.model;
+
 public class Producto {
     private String codigo;
     private String nombre;
