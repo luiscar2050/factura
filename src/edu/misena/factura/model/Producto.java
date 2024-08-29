@@ -1,18 +1,23 @@
-package edu.misena.factura.model;
-
-import java.util.Date;
-
 public class Producto {
     private String codigo;
     private String nombre;
     private double precio;
 
-    public String getCodigo() {
-        return codigo;
+    private static int ultimoCodigo = 0;
+
+    public Producto(String nombre, double precio) {
+        this.codigo = generarCodigoUnico();
+        this.nombre = nombre;
+        setPrecio(precio);
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    private String generarCodigoUnico() {
+        ultimoCodigo++;
+        return "P" + ultimoCodigo;
+    }
+
+    public String getCodigo() {
+        return codigo;
     }
 
     public String getNombre() {
@@ -33,5 +38,10 @@ public class Producto {
         } else {
             throw new IllegalArgumentException("El precio debe ser mayor o igual a cero.");
         }
+    }
+
+    @Override
+    public String toString() {
+        return codigo + "\t" + nombre + "\t" + precio;
     }
 }
