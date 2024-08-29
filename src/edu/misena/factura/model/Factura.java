@@ -1,59 +1,75 @@
 package edu.misena.factura.model;
-
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Factura {
+    private static final int MAX_ITEMS = 100;
     private int folio;
     private String descripcion;
     private Date fecha;
     private Cliente cliente;
     private ItemFactura[] items;
+    private int indiceItems;
 
-    public Factura(int folio, String descripcion, Date fecha, Cliente cliente, ItemFactura[] items) {
+    public Factura(int folio, String descripcion, Date fecha, Cliente cliente) {
         this.folio = folio;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.cliente = cliente;
-        this.items = items;
+        this.items = new ItemFactura[MAX_ITEMS];
+        this.indiceItems = 0;
     }
 
-    public int getFolio() {
-        return folio;
+    public void addItemFactura(ItemFactura item) {
+        if (indiceItems >= MAX_ITEMS) {
+            throw new IllegalStateException("No se pueden agregar más ítems. Se ha alcanzado el límite máximo.");
+        }
+        if (item != null) {
+            items[indiceItems++] = item;
+        }
     }
 
-    public void setFolio(int folio) {
-        this.folio = folio;
+    public float calcularTotal() {
+        float total = 0.0f;
+        for (ItemFactura item : items) {
+            if (item != null) {
+                total += item.calcularImporte();
+            }
+        }
+        return total;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String generarDetalle() {
+        StringBuilder sb = new StringBuilder("Factura Nº: ");
+        sb.append(folio)
+                .append("\nCliente: ")
+                .append(this.cliente.getNombre())
+                .append("\t NIF: ")
+                .append(cliente.getNif())
+                .append("\nDescripción: ")
+                .append(this.descripcion)
+                .append("\n");
+
+        SimpleDateFormat df = new SimpleDateFormat("dd 'de' MMMM, yyyy");
+        sb.append("Fecha Emisión: ")
+                .append(df.format(this.fecha))
+                .append("\n")
+                .append("\n#\tNombre\t$\tCant.\tTotal\n");
+
+        for (ItemFactura item : items) {
+            if (item != null) {
+                sb.append(item)
+                        .append("\n");
+            }
+        }
+        sb.append("\nGran Total: ")
+                .append(calcularTotal());
+
+        return sb.toString();
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
-    public ItemFactura[] getItems() {
-        return items;
-    }
-
-    public void setItems(ItemFactura[] items) {
-        this.items = items;
+    @Override
+    public String toString() {
+        return generarDetalle();
     }
 }

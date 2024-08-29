@@ -1,3 +1,6 @@
+package edu.misena.factura.model;
+import java.util.Date;
+
 public class ItemFactura {
     private Producto producto;
     private int cantidad;
